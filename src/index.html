@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>关系图</title>
+  <script>
+    Array.prototype.includes = function (a) {
+      return this.indexOf(a) > -1;
+    }
+  </script>
+</head>
+
+<body>
+  <img src="./images/people.png" alt="" style="display:none">
+  <div class="body">
+    <div id="tooltip"></div>
+    <canvas id="canvas" width="900" height="800"></canvas>
+  </div>
+
+  <div class="modal-layer"></div>
+  <div id="node-detail" class="modal">
+    <h1 class="title">详细信息<i style="float:right">&times;</i></h1>
+    <h2 class="name">123</h2>
+    <div class="modal-body">
+      <p><label for="">持仓：</label><span>10%</span></p>
+    </div>
+  </div>
+</body>
+
+
+</html>
