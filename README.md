@@ -1,4 +1,11 @@
 # relats
+## 预览
+### 缩放、拖拽
+![shot1](https://github.com/orGancode/relats/blob/master/static/zoom.gif)
+### 悬浮、点击
+![shot1](https://github.com/orGancode/relats/blob/master/static/hover.gif)
+### 展开、收缩
+![shot1](https://github.com/orGancode/relats/blob/master/static/expand.gif)
 ## 使用
 ### step 1、 安装
 > npm install
