@@ -1,11 +1,19 @@
 # relats
 ## 预览
 ### 缩放、拖拽
+> 通过滚轮鼠标的中键来缩放；点击鼠标左键来拖拽
+
 ![shot1](https://github.com/orGancode/relats/blob/master/static/zoom.gif)
+
 ### 悬浮、点击
+> 节点内容有做溢出处理，当鼠标悬浮在节点上会显示完全的内容；点击节点时，弹出该节点的详细内容modal
+
 ![shot1](https://github.com/orGancode/relats/blob/master/static/hover.gif)
+
 ### 展开、收缩
+> 支持动态的展开 收缩子级树，并重新计算节点的位置，以达到比较好的视觉效果
 ![shot1](https://github.com/orGancode/relats/blob/master/static/expand.gif)
+
 ## 使用
 ### step 1、 安装
 > npm install
