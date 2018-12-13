@@ -23,6 +23,7 @@ export default class BindZoomDrag {
     this.pointInExpand = option.pointInExpand || (() => { }); // 点在展开按钮内的范围
     this.pointInPath = option.pointInPath || (() => { }); // 点在节点内的范围
     this.showTooltip = option.showTooltip || (() => { }); // 展示悬浮提示
+    this.isClick = true; // 用以区分点击还是拖动后的鼠标松动
     this.bindDrag();
     this.bindZoom();
     this.bindHover();
@@ -46,8 +47,11 @@ export default class BindZoomDrag {
           x: e.offsetX - initPosition.x,
           y: e.offsetY - initPosition.y
         }
-        this.clearRect();
-        this.draw(this.posiX + movedPosi.x, this.posiY + movedPosi.y);
+        if (Math.pow(movedPosi.x, 2) + Math.pow(movedPosi.y, 2) > 2) {
+          this.isClick = false
+          this.clearRect();
+          this.draw(this.posiX + movedPosi.x, this.posiY + movedPosi.y);
+        }
       }
     }
     const onMouseCancel = (e) => {
@@ -59,6 +63,9 @@ export default class BindZoomDrag {
           this.posiY = this.posiY + (e.offsetY - initPosition.y);
         }
       }
+      setTimeout(() => {
+        this.isClick = true;
+      });
     };
     this.canvas.addEventListener('mousedown', onMouseDown);
     this.canvas.addEventListener('mousemove', onMouseMove);
@@ -89,8 +96,10 @@ export default class BindZoomDrag {
 
   bindClick() {
     this.canvas.addEventListener('click', (e) => {
-      this.pointInPath(e, this.globalScale, this.showDetailModal);
-      this.pointInExpand(e, this.globalScale, this.expandDetail);
+      if (this.isClick) {
+        this.pointInPath(e, this.globalScale, this.showDetailModal);
+        this.pointInExpand(e, this.globalScale, this.expandDetail);
+      }
     });
   };
 
