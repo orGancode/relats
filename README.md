@@ -9,6 +9,7 @@
 > http://localhost:8080
 
 ## 介绍
+![shot1](https://github.com/orGancode/relats/blob/master/static/shot1.jpg)
 ### 组件
 - 绑定缩放&拖拽事件 BindZoomDrag
 - 线条 LinkLine
