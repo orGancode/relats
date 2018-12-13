@@ -1,7 +1,7 @@
 import './index.css';
 import './style.scss';
 
-import data from './data/relates';
+import baseData from './data/relates';
 import BindZoomDrag from './components/bindZoomDrag.js';
 import BlockNode from './components/blockNode.js';
 import LinkLine from './components/linkline.js';
@@ -35,8 +35,8 @@ export default function () {
   context.fill();
 
 
-  const targetNode = filterArray(data.nodes, (item) => { return item.type === 1 }, (item) => { return item.type === 1 })[0];
-  let showNodes = getLayerData(data.nodes, 12);
+  const targetNode = filterArray(baseData.nodes, (item) => { return item.type === 1 }, (item) => { return item.type === 1 })[0];
+  let showNodes = getLayerData(baseData.nodes, 12);
   let horizonNodes = {
     0: {
       lays: [{ nodes: [targetNode], nodeWidth: NODEW }],
@@ -44,8 +44,8 @@ export default function () {
     }
   };// 水平层级节点集合
 
-  dealNodeStruction(targetNode, data, 'up', 1);
-  dealNodeStruction(targetNode, data, 'down', -1);
+  dealNodeStruction(targetNode, baseData, 'up', 1);
+  dealNodeStruction(targetNode, baseData, 'down', -1);
   let cx = 0;
   let cy = 0;
   draw();
@@ -282,14 +282,21 @@ export default function () {
 
   // 弹窗显示详情
   function showDetailModal(point, node, scale) {
-    const keys = Object.keys(node.detail);
-    if (keys.length) {
+    if (Object.keys(node.detail).length) {
       const modal = document.getElementById('node-detail');
       const modalLayer = document.querySelectorAll('.modal-layer')[0];
       modal.style.display = 'block';
       modalLayer.style.display = 'block';
-
-      modal.children[1].innerHTML = '名称：' + node.text;
+      modal.children[1].innerHTML = node.text;
+      let textHtml = '';
+      for (let key in node.detail) {
+        if (baseData.alias[key]) {
+          textHtml += `
+             <p><label for="">${baseData.alias[key]}: </label><span>${node.detail[key]}</span></p>
+          `
+        }
+      }
+      modal.children[2].innerHTML = textHtml;
 
       setTimeout(function () {
         modal.className = 'modal show';
@@ -307,7 +314,7 @@ export default function () {
 
   function expandDetail(point, node, scale) {
     // update node
-    showNodes = updateLayerData(data.nodes, showNodes, node.nodeInfo, !node.nodeInfo.opened);
+    showNodes = updateLayerData(baseData.nodes, showNodes, node.nodeInfo, !node.nodeInfo.opened);
     // 重绘
     horizonNodes = {
       0: {
@@ -315,8 +322,8 @@ export default function () {
         layWidth: NODEW
       }
     };// 水平层级节点集合
-    dealNodeStruction(targetNode, data, 'up', 1);
-    dealNodeStruction(targetNode, data, 'down', -1);
+    dealNodeStruction(targetNode, baseData, 'up', 1);
+    dealNodeStruction(targetNode, baseData, 'down', -1);
     canvasZD.clearRect();
     draw();
   }
